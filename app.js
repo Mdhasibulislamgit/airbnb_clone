@@ -1,9 +1,9 @@
 const express = require("express");
-
 const app = express();
-
 const mongoose = require("mongoose");
 const ejs = require("ejs");
+
+const Listings = require("./models/listing");
 
 //to connect to to database
 
@@ -16,13 +16,27 @@ main()
   });
 
 async function main() {
-  await mongoose.connect("mongodb://localhost:27017/airbnd_2");
+  await mongoose.connect("mongodb://localhost:27017/airbnb_clone");
 }
 
 //start api codeing
 
 app.get("/", (req, res) => {
   res.send("Hi I Am Root!");
+});
+
+app.get("/testlistings", async (req, res) => {
+  let sampleListing = new Listings({
+    title: "Sample Listing",
+    description: "This is a sample listing.",
+    price: 200,
+    location: "New York",
+    country: "United States;",
+  });
+
+  await sampleListing.save();
+  console.log("Sample Listing saved");
+  res.send("Sample listing created");
 });
 
 app.listen(8080, () => {
