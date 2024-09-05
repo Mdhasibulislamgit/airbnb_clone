@@ -2,7 +2,13 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const ejs = require("ejs");
+const path = require("path");
 
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
+
+//impoet other data files
 const Listings = require("./models/listing");
 
 //to connect to to database
@@ -25,18 +31,9 @@ app.get("/", (req, res) => {
   res.send("Hi I Am Root!");
 });
 
-app.get("/testlistings", async (req, res) => {
-  let sampleListing = new Listings({
-    title: "Sample Listing",
-    description: "This is a sample listing.",
-    price: 200,
-    location: "New York",
-    country: "United States;",
-  });
-
-  await sampleListing.save();
-  console.log("Sample Listing saved");
-  res.send("Sample listing created");
+app.get("/listings", async (req, res) => {
+  const allListings = await Listings.find({});
+  res.render("./listings/index.ejs", { allListings });
 });
 
 app.listen(8080, () => {
