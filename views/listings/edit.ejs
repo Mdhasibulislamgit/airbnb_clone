@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NewPost</title>
+  </head>
+  <body>
+    <h3>Create New Post</h3>
+    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
+        
+      <input
+        type="text"
+        name="listing[title]"
+        placeholder="Enter Title"
+        value="<%= listing.title %>"
+      /><br />
+      <textarea
+        name="listing[description]"
+      ><%= listing.description %></textarea>
+      <br />
+      <input
+        type="number"
+        name="listing[price]"
+        placeholder="Enter Price"
+        value="<%= listing.price %>"
+      />
+      <br />
+      <input
+        type="text"
+        name="listing[location]"
+        placeholder="Enter Location"
+        value="<%= listing.location %>"
+      />
+      <br />
+      <input
+        type="text"
+        name="listing[country]"
+        placeholder="Enter Country"
+        value="<%= listing.country %>"
+      />
+      <br />
+      <button>Edit</button>
+    </form>
+  </body>
+</html>
+
+<!-- in name is use [] to make listing object key and value, othoba sob gulake niye kaj korte hobe
+text area te value kaj kore nah .
+get post bade kono request kaj kore nah ayte method override name akta librari install kora lage.
+-->
