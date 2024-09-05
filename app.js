@@ -25,16 +25,26 @@ async function main() {
   await mongoose.connect("mongodb://localhost:27017/airbnb_clone");
 }
 
-//start api codeing
+//start crud api codeing
 
+//Root Route
 app.get("/", (req, res) => {
   res.send("Hi I Am Root!");
 });
 
+//Get All Listings
 app.get("/listings", async (req, res) => {
   const allListings = await Listings.find({});
   res.render("./listings/index.ejs", { allListings });
 });
+
+//show route
+
+app.get("/listings/:id", async(req, res) => {
+  const {id} = req.params;
+  const listing = await Listings.findById(id);
+  res.render("./listings/show.ejs", {listing});
+})
 
 app.listen(8080, () => {
   console.log("Server started on port 8080");
